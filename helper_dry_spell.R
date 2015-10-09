@@ -1,6 +1,6 @@
 ###helper function to calculate dry spells
 ####
-calcDrySpell <-function(dat,window,cutoff=2.5){
+calcDrySpell <-function(dat,window=14,cutoff=2.5){
   #input data vector,dry spell window, and rainfall cutoff
   z<-which(dat<cutoff)
   counter=1
@@ -21,17 +21,17 @@ calcDrySpell <-function(dat,window,cutoff=2.5){
        # else if(d>=13){x[z[i+1]]=1}
       
       if(counter>=window) {
-        print(counter)
+        #print(counter)
         if(i==length(z)){dat[z[(i-counter+1):(i)]]=-999}
        else{
          #print(z[(i-d):(i-1)])
-        dat[z[(i-counter):(i-1)]]=-999
+        dat[z[(i-counter):(i-1)]]=-9999
          }
       }
       counter=1
     }
   }
-  return (dat)
+  return (ifelse(dat==-9999,1,0))
   #return(z)
 }
 
